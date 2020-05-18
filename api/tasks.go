@@ -444,6 +444,9 @@ func (g *TaskGroup) Canonicalize(job *Job) {
 	if g.Name == nil {
 		g.Name = stringToPtr("")
 	}
+
+	fmt.Printf("TaskGroup.Canonicalize group:%s\n", *g.Name)
+
 	if g.Count == nil {
 		if g.Scaling != nil && g.Scaling.Min != nil {
 			g.Count = intToPtr(int(*g.Scaling.Min))
@@ -672,10 +675,13 @@ type Task struct {
 }
 
 func (t *Task) Canonicalize(tg *TaskGroup, job *Job) {
+
 	if t.Resources == nil {
 		t.Resources = &Resources{}
 	}
 	t.Resources.Canonicalize()
+	fmt.Printf("Task.Canonicalize name:%s, resources: %v\n", t.Name, t.Resources)
+
 	if t.KillTimeout == nil {
 		t.KillTimeout = timeToPtr(5 * time.Second)
 	}

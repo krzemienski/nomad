@@ -698,6 +698,7 @@ func (s *HTTPServer) JobsParseRequest(resp http.ResponseWriter, req *http.Reques
 }
 
 func ApiJobToStructJob(job *api.Job) *structs.Job {
+	fmt.Printf("ApiJobToStructJob, job.Canonicalize job:%s\n", *job.Name)
 	job.Canonicalize()
 
 	j := &structs.Job{
